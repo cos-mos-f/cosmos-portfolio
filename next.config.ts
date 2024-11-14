@@ -1,7 +1,13 @@
-import type { NextConfig } from "next";
+// next.config.ts
+import type { NextConfig } from 'next';
+
+const isProd = process.env.NODE_ENV === 'production';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  assetPrefix: isProd ? '/cosmos-portfolio/' : '',
+  basePath: isProd ? '/cosmos-portfolio' : '',
+  output: 'export',
 };
 
 export default nextConfig;
+
