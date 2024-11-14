@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   assetPrefix: branchName,
   basePath: branchName,
   output: 'export',
+  transform: {
+    "^.+\\.[jt]sx?$": "babel-jest",
+  }
 };
 
 export default withLinaria(nextConfig);
