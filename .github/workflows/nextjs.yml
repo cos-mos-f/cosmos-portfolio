@@ -76,7 +76,8 @@ jobs:
       - name: Install somthing
         run: npm install next-with-linaria @linaria/babel-preset @linaria/core @linaria/react
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        # run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
