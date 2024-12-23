@@ -37,6 +37,7 @@ const ScrollBar: React.FC<ScrollBarProps> = ({ length, currentIndex, onScrollCha
       }
     };
   }, [currentIndex, length]);
+  const base = process.env.GITHUB_PAGES ? '/cosmos-portfolio/' : './';
 
   return (
     <div
@@ -46,7 +47,7 @@ const ScrollBar: React.FC<ScrollBarProps> = ({ length, currentIndex, onScrollCha
     >
       <div className={styles.bar}></div>
       <img
-        src="../images/star.svg"
+        src={`${base}/images/star.svg`}
         alt="Star"
         className={styles.indicator}
         style={{ top: `${((currentIndex) / (length-1)) * 80 + 10}%` }}
