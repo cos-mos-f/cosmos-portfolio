@@ -16,12 +16,16 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <ArtBoard image={imageList[currentIndex]} />
-      <ScrollBar
-        length={imageList.length}
-        currentIndex={currentIndex}
-        onScrollChange={(index) => setCurrentIndex(index)}
-      />
+      <div className={styles.main}>
+        <ScrollBar
+          length={imageList.length}
+          currentIndex={currentIndex}
+          onScrollChange={(index) => setCurrentIndex(index)}
+        />
+      </div>
+      <div className={styles.back}>
+        <ArtBoard image={imageList[currentIndex]} />
+      </div>
     </div>
   );
 }

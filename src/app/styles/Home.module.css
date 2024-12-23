@@ -1,9 +1,28 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
+  height: 100vh; /* 画面全体の高さ */
+  width: 100vw; /* 画面全体の幅 */
+  margin: 0;
+  padding: 0; /* paddingをゼロに */
+  position: relative; /* 子要素の位置指定用 */
+}
+
+.main {
+  position: relative; /* z-index指定のためrelativeに */
+  display: flex;
+  height: 100%; /* コンテナ全体にフィット */
+  width: 100%; /* コンテナ全体にフィット */
+  padding: 40px;
+  z-index: 2; /* zインデックスを高く設定 */
+}
+
+.back {
+  position: absolute; /* mainの下に配置 */
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  height: 100%; /* コンテナ全体にフィット */
+  width: 100%; /* コンテナ全体にフィット */
+  padding: 40px;
+  z-index: 1; /* mainの下になるように設定 */
+}
