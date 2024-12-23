@@ -1,12 +1,20 @@
 .artBoard {
+  position: fixed;
+  align-items: center;
+  top: 0;
+  right: 0;
+  height: 703px;
+  width: 1000px;
+  border-width: 2px;
+  border-color: black;
     text-align: center;
     margin: 20px 0;
+    z-index: -1;
   }
   
   .image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
+    height: 700px;
+    border-radius: 0px;
   }
   
   .title {

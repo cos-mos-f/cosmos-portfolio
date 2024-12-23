@@ -1,9 +1,31 @@
 .scrollBarContainer {
-  width: 80%;
-  margin: 20px auto;
+  position: fixed;
+  left: 20px;
+  top: 0;
+  height: 100%;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
-.scrollBar {
-  width: 100%;
-  cursor: pointer;
+.bar {
+  width: 2px;
+  height: 90%;
+  background-color: black;
+  /* transition: width 0.3s ease; */
+}
+
+.scrollBarContainer:hover .bar {
+  width: 3px;
+}
+
+.indicator {
+  position: absolute;
+  left: calc(50% - 20px); /* 星の大きさに基づいて中央揃え */
+  width: 80px;
+  height: 80px;
+  transform: translateY(-50%); /* インジケータの中央揃え */
+  pointer-events: none; /* クリックイベントを無視 */
 }
