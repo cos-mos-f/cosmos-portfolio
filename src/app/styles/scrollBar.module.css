@@ -1,0 +1,9 @@
+.scrollBarContainer {
+  width: 80%;
+  margin: 20px auto;
+}
+
+.scrollBar {
+  width: 100%;
+  cursor: pointer;
+}
