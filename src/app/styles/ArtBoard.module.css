@@ -6,13 +6,13 @@
   top: 0;
   right: 0;
   height: 100%-2px;
-  width: 70%;
+  width: 100%;
   text-align: center;
   }
   .artFrame{
     display: flex;
     align-items: center;
-    width: 80%;
+    width: 68%;
     height: 100%;
     border-width: 1px;
     border-color: black;
