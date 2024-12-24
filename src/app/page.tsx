@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './styles/Home.module.css';
 import ScrollBar from './components/scrollBar';
 import ArtBoard from './components/artBoard';
@@ -14,30 +14,44 @@ const imageList = [
 ];
 
 export default function Home() {
-  const [currentPositionArtBoard, setCurrentPositionArtBoard] = useState(0); 
-  const [currentPositionGallery, setCurrentPositionGallery] = useState(0); 
+  const [currentPositionArtBoard, setCurrentPositionArtBoard] = useState(0);
+  const [currentPositionGallery, setCurrentPositionGallery] = useState(0);
   const [pageType, setPageType] = useState("Gallery");
-  let currentPosition = currentPositionArtBoard;
+  const [currentPosition, setCurrentPosition] = useState(0); // 現在のポジションを管理するステート
+
+  // pageTypeが変わった時にcurrentPositionを更新
+  useEffect(() => {
+    if (pageType === "artBoard") {
+      setCurrentPosition(currentPositionArtBoard);
+    } else if (pageType === "Gallery") {
+      setCurrentPosition(currentPositionGallery);
+    }
+  }, [pageType, currentPositionArtBoard, currentPositionGallery]);
 
   const handleScrollChange = (position: number) => {
-    if(pageType=="artBoard"){
+    if (pageType === "artBoard") {
       setCurrentPositionArtBoard(position);
-    }
-    else if(pageType=="Gallery"){
+    } else if (pageType === "Gallery") {
       setCurrentPositionGallery(position);
     }
+    setCurrentPosition(position); // 現在のページに紐づけたポジションを更新
   };
+  const handleGalleryScrollChange = (position: number)=>{
+    setCurrentPositionGallery(position);
+  }
 
   const currentIndex = Math.round(currentPositionArtBoard * (imageList.length - 1));
 
-
   const renderContent = () => {
     if (pageType === "artBoard") {
-      currentPosition = currentPositionArtBoard;
       return <ArtBoard image={imageList[currentIndex]} />;
     } else if (pageType === "Gallery") {
-      currentPosition = currentPositionGallery;
-      return <Gallery imageList={imageList} currentPosition={currentPositionGallery}/>;
+      return <Gallery
+      imageList={imageList}
+      currentPosition={currentPositionGallery}
+      onScrollChange={handleGalleryScrollChange}
+    />
+    ;
     } else if (pageType === "Contact") {
       return <div></div>;
     }
@@ -58,3 +72,4 @@ export default function Home() {
     </div>
   );
 }
+

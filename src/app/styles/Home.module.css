@@ -4,19 +4,21 @@
   margin: 0;
   padding: 0; /* paddingをゼロに */
   position: relative; /* 子要素の位置指定用 */
+  overflow: auto;
 }
 
 .main {
   position: relative; /* z-index指定のためrelativeに */
   display: flex;
-  height: 100%; /* コンテナ全体にフィット */
-  width: 100%; /* コンテナ全体にフィット */
+  height: 100%;
+  width: fit-content;
   padding: 44px;
   z-index: 2; /* zインデックスを高く設定 */
+  overflow: none;
 }
 
 .back {
-  position: absolute; /* mainの下に配置 */
+  position: fixed; /* mainの下に配置 */
   top: 0;
   left: 0;
   display: flex;
@@ -25,4 +27,5 @@
   width: 100%; /* コンテナ全体にフィット */
   padding: 40px;
   z-index: 1; /* mainの下になるように設定 */
+  overflow: auto;
 }

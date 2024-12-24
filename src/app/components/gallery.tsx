@@ -9,12 +9,12 @@ type ImageItem = {
 type GalleryProps = {
   imageList: ImageItem[];
   currentPosition: number;
+  onScrollChange: (position: number) => void; // 連続量(0~1)を渡す
 };
 
-const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition }) => {
+const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScrollChange}) => {
   const galleryRef = useRef<HTMLDivElement>(null);
 
-  // currentPositionの変化をスクロール位置に反映
   useEffect(() => {
     const galleryElement = galleryRef.current;
 
@@ -23,12 +23,11 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition }) => {
       const scrollLeft = maxScrollLeft * currentPosition;
       galleryElement.scrollTo({
         left: scrollLeft,
-        behavior: "smooth", // スムーズなスクロール
+        behavior: "smooth", 
       });
     }
   }, [currentPosition]);
 
-  // スムーズなスクロールの実装
   useEffect(() => {
     const galleryElement = galleryRef.current;
 
@@ -36,31 +35,32 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition }) => {
       let isScrolling = false;
       let scrollDelta = 0;
 
+      // スクロールイベントをスムーズに処理
       const handleWheel = (event: WheelEvent) => {
         event.preventDefault();
         scrollDelta += event.deltaY;
 
+        onScrollChange(galleryElement.scrollLeft/(galleryElement.scrollWidth - galleryElement.clientWidth))
         if (!isScrolling) {
           isScrolling = true;
           smoothScroll();
         }
       };
-
       const smoothScroll = () => {
         if (!galleryElement) return;
 
         galleryElement.scrollBy({
-          left: scrollDelta / 5,
+          left: scrollDelta / 5, // 分割してスムーズに移動
         });
-        scrollDelta *= 0.5;
+        scrollDelta *= 0.85; // 減速
 
         if (Math.abs(scrollDelta) > 0.5) {
           requestAnimationFrame(smoothScroll);
         } else {
           isScrolling = false;
-          scrollDelta = 0;
+          scrollDelta = 0; // 停止時にリセット
         }
-      };
+      }
 
       galleryElement.addEventListener("wheel", handleWheel);
 
