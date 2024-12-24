@@ -2,12 +2,11 @@ import React, { useRef, useEffect, useState } from "react";
 import styles from "../styles/scrollBar.module.css";
 
 interface ScrollBarProps {
-  length: number;
   currentPosition: number; // 0~1の連続量
   onScrollChange: (position: number) => void; // 連続量(0~1)を渡す
 }
 
-const ScrollBar: React.FC<ScrollBarProps> = ({ length, currentPosition, onScrollChange }) => {
+const ScrollBar: React.FC<ScrollBarProps> = ({currentPosition, onScrollChange }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const animationIntervalRef = useRef<NodeJS.Timeout | null>(null);

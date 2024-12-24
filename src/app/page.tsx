@@ -14,21 +14,30 @@ const imageList = [
 ];
 
 export default function Home() {
-  const [currentPosition, setCurrentPosition] = useState(0); // 0~1の連続量
+  const [currentPositionArtBoard, setCurrentPositionArtBoard] = useState(0); 
+  const [currentPositionGallery, setCurrentPositionGallery] = useState(0); 
+  const [pageType, setPageType] = useState("Gallery");
+  let currentPosition = currentPositionArtBoard;
 
   const handleScrollChange = (position: number) => {
-    setCurrentPosition(position);
+    if(pageType=="artBoard"){
+      setCurrentPositionArtBoard(position);
+    }
+    else if(pageType=="Gallery"){
+      setCurrentPositionGallery(position);
+    }
   };
 
-  const currentIndex = Math.round(currentPosition * (imageList.length - 1));
+  const currentIndex = Math.round(currentPositionArtBoard * (imageList.length - 1));
 
-  const [pageType, setPageType] = useState("Gallery");
 
   const renderContent = () => {
     if (pageType === "artBoard") {
+      currentPosition = currentPositionArtBoard;
       return <ArtBoard image={imageList[currentIndex]} />;
     } else if (pageType === "Gallery") {
-      return <Gallery imageList={imageList} />;
+      currentPosition = currentPositionGallery;
+      return <Gallery imageList={imageList} currentPosition={currentPositionGallery}/>;
     } else if (pageType === "Contact") {
       return <div></div>;
     }
@@ -38,7 +47,6 @@ export default function Home() {
     <div className={styles.container}>
       <div className={styles.main}>
         <ScrollBar
-          length={imageList.length}
           currentPosition={currentPosition}
           onScrollChange={handleScrollChange}
         />

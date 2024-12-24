@@ -8,11 +8,27 @@ type ImageItem = {
 
 type GalleryProps = {
   imageList: ImageItem[];
+  currentPosition: number;
 };
 
-const Gallery: React.FC<GalleryProps> = ({ imageList }) => {
+const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition }) => {
   const galleryRef = useRef<HTMLDivElement>(null);
 
+  // currentPositionの変化をスクロール位置に反映
+  useEffect(() => {
+    const galleryElement = galleryRef.current;
+
+    if (galleryElement) {
+      const maxScrollLeft = galleryElement.scrollWidth - galleryElement.clientWidth;
+      const scrollLeft = maxScrollLeft * currentPosition;
+      galleryElement.scrollTo({
+        left: scrollLeft,
+        behavior: "smooth", // スムーズなスクロール
+      });
+    }
+  }, [currentPosition]);
+
+  // スムーズなスクロールの実装
   useEffect(() => {
     const galleryElement = galleryRef.current;
 
@@ -20,7 +36,6 @@ const Gallery: React.FC<GalleryProps> = ({ imageList }) => {
       let isScrolling = false;
       let scrollDelta = 0;
 
-      // スクロールイベントをスムーズに処理
       const handleWheel = (event: WheelEvent) => {
         event.preventDefault();
         scrollDelta += event.deltaY;
@@ -35,15 +50,15 @@ const Gallery: React.FC<GalleryProps> = ({ imageList }) => {
         if (!galleryElement) return;
 
         galleryElement.scrollBy({
-          left: scrollDelta / 5, // 分割してスムーズに移動
+          left: scrollDelta / 5,
         });
-        scrollDelta *= 0.5; // 減速
+        scrollDelta *= 0.5;
 
         if (Math.abs(scrollDelta) > 0.5) {
           requestAnimationFrame(smoothScroll);
         } else {
           isScrolling = false;
-          scrollDelta = 0; // 停止時にリセット
+          scrollDelta = 0;
         }
       };
 
@@ -68,3 +83,4 @@ const Gallery: React.FC<GalleryProps> = ({ imageList }) => {
 };
 
 export default Gallery;
+
