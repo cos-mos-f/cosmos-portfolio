@@ -17,5 +17,9 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:   'Bodoni', Didot, 'Century', "Times New Roman", serif, 'Yu Mincho', 'Hiragino Mincho ProN', 'MS PMincho';
+  font-size: 18pt;
+  font-weight: 100;
+  letter-spacing: -1.5px;
 }
+

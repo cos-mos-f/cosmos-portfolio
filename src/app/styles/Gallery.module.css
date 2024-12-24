@@ -27,6 +27,6 @@
 
 .space {
     flex-shrink: 0; /* 要素の縮小を禁止 */
-    width: 60vw; /* 空白部分を画面の60%に設定 */
+    width: 40vw; 
     height: 100%;
 }

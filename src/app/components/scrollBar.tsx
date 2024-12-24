@@ -65,7 +65,6 @@ const ScrollBar: React.FC<ScrollBarProps> = ({currentPosition, onScrollChange })
       const dragY = event.clientY - rect.top;
       const newPosition = Math.min(Math.max(dragY / rect.height, 0), 1);
       onScrollChange(newPosition); 
-      // currentPosition=newPosition;
     }
   };
 

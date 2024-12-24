@@ -16,7 +16,7 @@ const imageList = [
 export default function Home() {
   const [currentPositionArtBoard, setCurrentPositionArtBoard] = useState(0);
   const [currentPositionGallery, setCurrentPositionGallery] = useState(0);
-  const [pageType, setPageType] = useState("Gallery");
+  const [pageType, setPageType] = useState("artBoard");
   const [currentPosition, setCurrentPosition] = useState(0); // 現在のポジションを管理するステート
 
   // pageTypeが変わった時にcurrentPositionを更新
@@ -64,7 +64,10 @@ export default function Home() {
           currentPosition={currentPosition}
           onScrollChange={handleScrollChange}
         />
-        <MainSection setPageType={setPageType} />
+        <MainSection 
+          pageType={pageType}
+          setPageType={setPageType} 
+        />
       </div>
       <div className={styles.back}>
         {renderContent()}
