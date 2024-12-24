@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/mainSection.module.css';
 import LineText from './lineText';
+import Line from './line';
 type MainSectionProps = {
   pageType: string;
   setPageType: (pageType: string) => void;
@@ -22,14 +23,20 @@ const MainSection: React.FC<MainSectionProps> = ({ pageType, setPageType }) => {
   return (
     <div className={styles.mainSection}>
       <div className={styles.Title}>cosmos<br/>gallery</div>
-      <LineText 
-      onClick={() => setPageType("Gallery")}
-      isActive={isGallery}
-        >works</LineText>
-      <LineText 
-      onClick={() => setPageType("Contact")}
-      isActive={isContact}
-        >contact</LineText>
+      <div className={styles.TextFrame}>
+        <LineText 
+        onClick={() => setPageType("Gallery")}
+        isActive={isGallery}
+          >works</LineText>
+        <Line isActive={isGallery}/>
+      </div>
+      <div className={styles.TextFrame}>
+        <LineText 
+        onClick={() => setPageType("Contact")}
+        isActive={isContact}
+          >contact</LineText>
+        <Line isActive={isContact}/>
+      </div>
     </div>
   );
 };

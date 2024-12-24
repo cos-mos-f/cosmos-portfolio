@@ -16,3 +16,10 @@
     transform-origin: left;
     letter-spacing: -2px;
 }
+
+.TextFrame{
+    width: 200%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end; 
+}

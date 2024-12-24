@@ -15,6 +15,7 @@ type GalleryProps = {
 const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScrollChange}) => {
   const galleryRef = useRef<HTMLDivElement>(null);
 
+  //スクロールバーからの位置変更
   useEffect(() => {
     const galleryElement = galleryRef.current;
 
@@ -28,6 +29,7 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
     }
   }, [currentPosition]);
 
+  //マウスホイールからの位置変更
   useEffect(() => {
     const galleryElement = galleryRef.current;
 
@@ -35,7 +37,6 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
       let isScrolling = false;
       let scrollDelta = 0;
 
-      // スクロールイベントをスムーズに処理
       const handleWheel = (event: WheelEvent) => {
         event.preventDefault();
         scrollDelta += event.deltaY;
@@ -62,12 +63,12 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
         }
       }
 
-      galleryElement.addEventListener("wheel", handleWheel);
+      document.addEventListener("wheel", handleWheel);
 
       return () => {
-        galleryElement.removeEventListener("wheel", handleWheel);
+        document.removeEventListener("wheel", handleWheel);
       };
-    }
+    } 
   }, []);
 
   return (
