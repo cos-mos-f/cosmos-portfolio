@@ -5,6 +5,7 @@ import ScrollBar from './components/scrollBar';
 import ArtBoard from './components/artBoard';
 import Gallery from './components/gallery';
 import MainSection from './components/mainSection';
+import SubSection from './components/subSection';
 
 const imageList = [
   { title: 'Image 1', path: '/images/fan_arts/main/2024.12.63.02.jpg' },
@@ -18,7 +19,7 @@ export default function Home() {
   const [currentPositionGallery, setCurrentPositionGallery] = useState(0);
   const [pageType, setPageType] = useState("artBoard");
   const [currentPosition, setCurrentPosition] = useState(0); // 現在のポジションを管理するステート
-
+  const [galleryType, setGalleryType] = useState('all');
   // pageTypeが変わった時にcurrentPositionを更新
   useEffect(() => {
     if (pageType === "artBoard") {
@@ -67,6 +68,11 @@ export default function Home() {
         <MainSection 
           pageType={pageType}
           setPageType={setPageType} 
+        />
+        <SubSection
+          pageType={pageType}
+          galleryType={galleryType}
+          setGalleryType={setGalleryType}
         />
       </div>
       <div className={styles.back}>
