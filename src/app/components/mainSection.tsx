@@ -1,11 +1,19 @@
-import styles from '../styles/scrollBar.module.css';
+// components/mainSection.tsx
+import React from 'react';
+import styles from '../styles/mainSection.module.css';
 
-const mainSection = () => {
+type MainSectionProps = {
+  setPageType: (pageType: string) => void;
+};
+
+const MainSection: React.FC<MainSectionProps> = ({ setPageType }) => {
   return (
-    <div className={styles.footer}>
-      <p>&copy; 2024 My Portfolio. All Rights Reserved.</p>
+    <div className={styles.mainSection}>
+      <button onClick={() => setPageType("artBoard")}>ArtBoard</button>
+      <button onClick={() => setPageType("Gallery")}>Gallery</button>
+      <button onClick={() => setPageType("Contact")}>Contact</button>
     </div>
   );
 };
 
-export default mainSection;
+export default MainSection;
