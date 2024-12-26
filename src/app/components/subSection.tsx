@@ -9,8 +9,6 @@ type subSectionProps = {
 };
 
 const SubSection: React.FC<subSectionProps> = ({ pageType, galleryType, setGalleryType }) => {
-  const [isGallery, setIsGallery] = useState(false);
-  const [isContact, setIsContact] = useState(false);
 
   const [isAll, setIsAll] = useState(true);
   const [isFanArt, setIsFanArt] = useState(false);
@@ -19,17 +17,6 @@ const SubSection: React.FC<subSectionProps> = ({ pageType, galleryType, setGalle
   const mailText = "cos.mos.f.works@gmail.com"
   const mailLink = "mailto:cos.mos.f.works@gmail.com/"
 
-  //表示内容を切り替え
-  useEffect(()=>{
-    if(pageType=="Gallery"){
-      setIsContact(false);
-      setIsGallery(true);
-    }
-    if(pageType=="Contact"){
-      setIsContact(true);
-      setIsGallery(false);
-    }
-  },[pageType])
   //ラインを切り替え
   const changeGalleryType = (gallery_type: string)=>{
     setIsAll(gallery_type==="All");
