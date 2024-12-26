@@ -19,6 +19,10 @@ const MainSection: React.FC<MainSectionProps> = ({ pageType, setPageType }) => {
       setIsContact(true);
       setIsGallery(false);
     }
+    if(pageType=="artBoard"){
+      setIsContact(false);
+      setIsGallery(false);
+    }
   },[pageType])
   return (
     <div className={styles.mainSection}>

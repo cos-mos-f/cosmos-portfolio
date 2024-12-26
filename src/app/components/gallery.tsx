@@ -2,8 +2,10 @@ import { useEffect, useRef } from "react";
 import styles from "../styles/Gallery.module.css";
 
 type ImageItem = {
+  filename:string;
   title: string;
-  path: string;
+  width: number;
+  height:number;
 };
 
 type GalleryProps = {
@@ -15,6 +17,7 @@ type GalleryProps = {
 
 const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScrollChange, onClickImage}) => {
   const galleryRef = useRef<HTMLDivElement>(null);
+  const base = process.env.GITHUB_PAGES ? '/cosmos-portfolio/' : './';
 
   //スクロールバーからの位置変更
   useEffect(() => {
@@ -77,7 +80,7 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
       <div className={styles.space}></div>
       {imageList.map((image, index) => (
         <div key={index} className={styles.imageContainer}>
-          <img src={image.path} alt={image.title} className={styles.image} onClick={()=>onClickImage(index)}/>
+          <img src={`${base}/images/artWorks/${image.filename}`} alt={image.title} className={styles.image} onClick={()=>onClickImage(index)}/>
         </div>
       ))}
     </div>

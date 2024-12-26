@@ -2,8 +2,10 @@ import React from 'react';
 import styles from '../styles/ArtBoard.module.css';
 
 type ImageItem = {
+  filename:string;
   title: string;
-  path: string;
+  width: number;
+  height:number;
 };
 
 interface ArtBoardProps {
@@ -32,7 +34,7 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
       <div className={styles.title}>{imageList[index].title}</div>
       <div className={styles.artFrame}  onClick={handleClick}>
         <img
-          src={base + imageList[index].path}
+          src={`${base}/images/artWorks/${imageList[index].filename}`}
           alt={imageList[index].title}
           className={styles.image}
         />
