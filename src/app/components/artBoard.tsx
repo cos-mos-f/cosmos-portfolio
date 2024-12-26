@@ -18,15 +18,8 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
   const base = process.env.GITHUB_PAGES ? '/cosmos-portfolio/' : './';
   const artFrameRef = useRef<HTMLDivElement | null>(null);
   const [frameSize, setFrameSize] = useState({ width: 0, height: 0 });
+  const [isImageLoaded, setIsImageLoaded] = useState(false); // 画像ロード状態
   const loadedImages = useRef(new Set<string>());
-
-  const debounce = useCallback((func: () => void, wait: number) => {
-    let timeout: NodeJS.Timeout;
-    return () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(func, wait);
-    };
-  }, []);
 
   useEffect(() => {
     const updateFrameSize = () => {
@@ -36,12 +29,10 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
       }
     };
 
-    const debouncedUpdateFrameSize = debounce(updateFrameSize, 100);
-    window.addEventListener('resize', debouncedUpdateFrameSize);
-
+    window.addEventListener('resize', updateFrameSize);
     updateFrameSize();
-    return () => window.removeEventListener('resize', debouncedUpdateFrameSize);
-  }, [debounce]);
+    return () => window.removeEventListener('resize', updateFrameSize);
+  }, []);
 
   const scaledImageSize = useMemo(() => {
     if (!frameSize.width || !frameSize.height) return { width: 0, height: 0 };
@@ -58,18 +49,10 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
   }, [index, frameSize.width, frameSize.height, imageList]);
 
   useEffect(() => {
-    const preloadImage = (src: string) => {
-      if (loadedImages.current.has(src)) return;
-      const img = new Image();
-      img.src = src;
-      loadedImages.current.add(src);
-    };
-
-    const nextIndex = (index + 1) % imageList.length;
-    const prevIndex = (index - 1 + imageList.length) % imageList.length;
-
-    preloadImage(`${base}/images/artWorks/${imageList[nextIndex].filename}`);
-    preloadImage(`${base}/images/artWorks/${imageList[prevIndex].filename}`);
+    setIsImageLoaded(false); // 画像切り替え時にローディング状態に設定
+    const img = new Image();
+    img.src = `${base}/images/artWorks/${imageList[index].filename}`;
+    img.onload = () => setIsImageLoaded(true); // 画像がロードされたら更新
   }, [index, imageList, base]);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -87,11 +70,18 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
         onClick={handleClick}
         style={{ position: 'relative', overflow: 'hidden' }}
       >
+        {!isImageLoaded && (
+          <div
+            className={`${styles.skeleton}`}
+            style={{ width: scaledImageSize.width, height: scaledImageSize.height }}
+          />
+        )}
         <img
           src={`${base}/images/artWorks/${imageList[index].filename}`}
           alt={imageList[index].title}
           className={styles.image}
           style={{
+            display: isImageLoaded ? 'block' : 'none',
             width: scaledImageSize.width,
             height: scaledImageSize.height,
           }}

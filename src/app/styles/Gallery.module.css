@@ -25,6 +25,18 @@
     width: auto; /* 横幅は比率に応じて調整 */
     display: block;
     z-index: 1;
+    border-width: 1px;
+    border-color: black;
+}
+.verticalFrame{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.horizontalFrame{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 
 .space {
