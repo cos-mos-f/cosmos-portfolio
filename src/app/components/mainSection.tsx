@@ -22,7 +22,7 @@ const MainSection: React.FC<MainSectionProps> = ({ pageType, setPageType }) => {
   },[pageType])
   return (
     <div className={styles.mainSection}>
-      <div className={styles.Title}>cosmos<br/>gallery</div>
+      <button onClick={()=>setPageType("artBoard")} className={styles.Title}>cosmos<br/>gallery</button>
       <div className={styles.TextFrame}>
         <LineText 
         onClick={() => setPageType("Gallery")}

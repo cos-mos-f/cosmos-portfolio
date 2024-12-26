@@ -19,7 +19,7 @@ export default function Home() {
   const [currentPositionGallery, setCurrentPositionGallery] = useState(0);
   const [pageType, setPageType] = useState("artBoard");
   const [currentPosition, setCurrentPosition] = useState(0); // 現在のポジションを管理するステート
-  const [galleryType, setGalleryType] = useState('all');
+  const [galleryType, setGalleryType] = useState('All');
   // pageTypeが変わった時にcurrentPositionを更新
   useEffect(() => {
     if (pageType === "artBoard") {
