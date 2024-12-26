@@ -7,22 +7,23 @@
   right: 0;
   height: 100%-2px;
   width: 100%;
+  padding: 40px;
   text-align: center;
   }
   .artFrame{
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 68%;
     height: 100%;
     border-width: 1px;
     border-color: black;
     box-sizing:border-box;
     overflow: hidden;
+    pointer-events: auto;
   }
   
   .image {
-    height: auto;
-    width: auto;
     z-index: -1;
   }
   

@@ -25,7 +25,7 @@
   flex-direction: row-reverse;
   height: 100%; /* コンテナ全体にフィット */
   width: 100%; /* コンテナ全体にフィット */
-  padding: 40px;
+  padding: 0;
   z-index: 1; /* mainの下になるように設定 */
   overflow: auto;
 }
