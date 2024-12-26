@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../styles/LinkBox.module.css";
-import LineText from "./lineText";
 
 interface LinkBoxProps {
   PlatForm: string;
