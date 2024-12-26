@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import styles from '../styles/ArtBoard.module.css';
 
 type ImageItem = {
@@ -19,7 +19,6 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
   const artFrameRef = useRef<HTMLDivElement | null>(null);
   const [frameSize, setFrameSize] = useState({ width: 0, height: 0 });
   const [isImageLoaded, setIsImageLoaded] = useState(false); // 画像ロード状態
-  const loadedImages = useRef(new Set<string>());
 
   useEffect(() => {
     const updateFrameSize = () => {
