@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import styles from '../styles/ArtBoard.module.css';
 
 type ImageItem = {
@@ -18,7 +18,15 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
   const base = process.env.GITHUB_PAGES ? '/cosmos-portfolio/' : './';
   const artFrameRef = useRef<HTMLDivElement | null>(null);
   const [frameSize, setFrameSize] = useState({ width: 0, height: 0 });
-  const [imageSize, setImageSize] = useState({width: 100, height: 100});
+  const loadedImages = useRef(new Set<string>());
+
+  const debounce = useCallback((func: () => void, wait: number) => {
+    let timeout: NodeJS.Timeout;
+    return () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(func, wait);
+    };
+  }, []);
 
   useEffect(() => {
     const updateFrameSize = () => {
@@ -28,43 +36,47 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
       }
     };
 
-    // 初期サイズ取得
+    const debouncedUpdateFrameSize = debounce(updateFrameSize, 100);
+    window.addEventListener('resize', debouncedUpdateFrameSize);
+
     updateFrameSize();
+    return () => window.removeEventListener('resize', debouncedUpdateFrameSize);
+  }, [debounce]);
 
-    // ウィンドウリサイズ時に再計算
-    window.addEventListener('resize', updateFrameSize);
-    return () => window.removeEventListener('resize', updateFrameSize);
-  }, []);
+  const scaledImageSize = useMemo(() => {
+    if (!frameSize.width || !frameSize.height) return { width: 0, height: 0 };
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const { clientX, currentTarget } = e;
-    const rect = currentTarget.getBoundingClientRect();
-    const middle = rect.width / 2 + rect.left;
-    const isRightClick = clientX > middle;
-
-    if (isRightClick) {
-      changeIndex(index + 1 < imageList.length ? index + 1 : 0);
-      console.log('right');
-    } else {
-      changeIndex(index - 1 >= 0 ? index - 1 : imageList.length - 1);
-      console.log('left');
-    }
-  };
-  // 画像サイズ計算
-  useEffect(()=>{
     const { width, height } = imageList[index];
-    const { width: frameWidth, height: frameHeight } = frameSize;
+    const widthRatio = frameSize.width / width;
+    const heightRatio = frameSize.height / height;
+    const scale = Math.min(widthRatio, heightRatio);
 
-    if (frameWidth && frameHeight) {
-      const widthRatio = frameWidth / width;
-      const heightRatio = frameHeight / height;
-      const scale = Math.min(widthRatio, heightRatio);
-      setImageSize({
-        width:Math.floor(width * scale),
-        height: Math.floor(height * scale)
-      })
-    }
-  },[index, frameSize])
+    return {
+      width: Math.floor(width * scale),
+      height: Math.floor(height * scale),
+    };
+  }, [index, frameSize.width, frameSize.height, imageList]);
+
+  useEffect(() => {
+    const preloadImage = (src: string) => {
+      if (loadedImages.current.has(src)) return;
+      const img = new Image();
+      img.src = src;
+      loadedImages.current.add(src);
+    };
+
+    const nextIndex = (index + 1) % imageList.length;
+    const prevIndex = (index - 1 + imageList.length) % imageList.length;
+
+    preloadImage(`${base}/images/artWorks/${imageList[nextIndex].filename}`);
+    preloadImage(`${base}/images/artWorks/${imageList[prevIndex].filename}`);
+  }, [index, imageList, base]);
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = artFrameRef.current!.getBoundingClientRect();
+    const isRightClick = e.clientX > rect.left + rect.width / 2;
+    changeIndex(isRightClick ? (index + 1) % imageList.length : (index - 1 + imageList.length) % imageList.length);
+  };
 
   return (
     <div className={styles.artBoard}>
@@ -80,8 +92,8 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
           alt={imageList[index].title}
           className={styles.image}
           style={{
-            width: `${imageSize.width}px`,
-            height: `${imageSize.height}px`,
+            width: scaledImageSize.width,
+            height: scaledImageSize.height,
           }}
         />
       </div>
@@ -90,3 +102,4 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
 };
 
 export default ArtBoard;
+
