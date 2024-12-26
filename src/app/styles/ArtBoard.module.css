@@ -31,5 +31,6 @@
     margin-right: 20px;
     margin-bottom: 0;
     height: 30px;
+    user-select: text;
   }
   

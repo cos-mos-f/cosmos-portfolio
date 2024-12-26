@@ -16,9 +16,11 @@ const imageList = [
 
 export default function Home() {
   const [currentPositionArtBoard, setCurrentPositionArtBoard] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [currentPositionGallery, setCurrentPositionGallery] = useState(0);
   const [pageType, setPageType] = useState("artBoard");
   const [currentPosition, setCurrentPosition] = useState(0); // 現在のポジションを管理するステート
+  const [isScrollBarHovered, setIsScrollBarHovered] = useState(false);
   const [galleryType, setGalleryType] = useState('All');
   // pageTypeが変わった時にcurrentPositionを更新
   useEffect(() => {
@@ -28,29 +30,53 @@ export default function Home() {
       setCurrentPosition(currentPositionGallery);
     }
   }, [pageType, currentPositionArtBoard, currentPositionGallery]);
-
+  //スクロールバーの紐づけ
   const handleScrollChange = (position: number) => {
     if (pageType === "artBoard") {
       setCurrentPositionArtBoard(position);
     } else if (pageType === "Gallery") {
       setCurrentPositionGallery(position);
     }
-    setCurrentPosition(position); // 現在のページに紐づけたポジションを更新
+    setCurrentPosition(position); // 
   };
   const handleGalleryScrollChange = (position: number)=>{
     setCurrentPositionGallery(position);
   }
 
-  const currentIndex = Math.round(currentPositionArtBoard * (imageList.length - 1));
+  const changeIndex = (index:number) =>{
+    setCurrentIndex(index);
+  }
+  //スクロールをインデックスと紐づけ
+  useEffect(()=>{
+    const index = Math.round(currentPositionArtBoard * (imageList.length - 1));
+    if(currentIndex!=index){
+      changeIndex(index);
+    }
+  },[currentPositionArtBoard]);
+  useEffect(()=>{
+    if(!isScrollBarHovered){
+      setCurrentPositionArtBoard(currentIndex/(imageList.length-1));
+    }
+  },[currentIndex])
+
+  const ChangeImage = (index:number)=>{
+    setPageType("artBoard");
+    setCurrentIndex(index);
+  }
 
   const renderContent = () => {
     if (pageType === "artBoard") {
-      return <ArtBoard image={imageList[currentIndex]} />;
+      return <ArtBoard 
+      imageList={imageList} 
+      index={currentIndex}
+      changeIndex={changeIndex}
+      />;
     } else if (pageType === "Gallery") {
       return <Gallery
       imageList={imageList}
       currentPosition={currentPositionGallery}
       onScrollChange={handleGalleryScrollChange}
+      onClickImage={ChangeImage}
     />
     ;
     } else if (pageType === "Contact") {
@@ -64,6 +90,7 @@ export default function Home() {
         <ScrollBar
           currentPosition={currentPosition}
           onScrollChange={handleScrollChange}
+          setIsHovered={setIsScrollBarHovered}
         />
         <MainSection 
           pageType={pageType}

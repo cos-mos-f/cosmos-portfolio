@@ -32,3 +32,16 @@ body {
     height: 100vw; /* 幅を高さとして設定 */
   }
 }
+
+* {
+  user-select: none; /* テキスト選択を無効化 */
+}
+* {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox (古いバージョン) */
+  -ms-user-select: none;     /* IE10+ */
+  user-select: none;         /* 標準 */
+}
+img {
+  user-select: none;        /* テキスト選択を無効化 */
+}

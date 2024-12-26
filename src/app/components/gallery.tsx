@@ -10,9 +10,10 @@ type GalleryProps = {
   imageList: ImageItem[];
   currentPosition: number;
   onScrollChange: (position: number) => void; // 連続量(0~1)を渡す
+  onClickImage:(index:number)=>void;
 };
 
-const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScrollChange}) => {
+const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScrollChange, onClickImage}) => {
   const galleryRef = useRef<HTMLDivElement>(null);
 
   //スクロールバーからの位置変更
@@ -76,7 +77,7 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
       <div className={styles.space}></div>
       {imageList.map((image, index) => (
         <div key={index} className={styles.imageContainer}>
-          <img src={image.path} alt={image.title} className={styles.image} />
+          <img src={image.path} alt={image.title} className={styles.image} onClick={()=>onClickImage(index)}/>
         </div>
       ))}
     </div>
