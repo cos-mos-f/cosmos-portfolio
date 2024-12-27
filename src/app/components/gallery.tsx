@@ -1,6 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef , useState, useLayoutEffect} from "react";
 import styles from "../styles/Gallery.module.css";
+const useWindowSize = (): number[] => {
+  const [size, setSize] = useState([0, 0]);
+  useLayoutEffect(() => {
+    const updateSize = (): void => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
 
+    window.addEventListener('resize', updateSize);
+    updateSize();
+
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+  return size;
+};
 type ImageItem = {
   filename:string;
   title: string;
@@ -18,14 +31,15 @@ type GalleryProps = {
 const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScrollChange, onClickImage}) => {
   const galleryRef = useRef<HTMLDivElement>(null);
   const base = process.env.GITHUB_PAGES ? '/cosmos-portfolio/' : './';
-
+  const [width, height] = useWindowSize();
   //スクロールバーからの位置変更
   useEffect(() => {
     const galleryElement = galleryRef.current;
 
     if (galleryElement) {
-      const maxScrollLeft = galleryElement.scrollWidth - galleryElement.clientWidth;
+      const maxScrollLeft = galleryElement.scrollWidth - width;
       const scrollLeft = maxScrollLeft * currentPosition;
+      console.log(scrollLeft);
       galleryElement.scrollTo({
         left: scrollLeft,
         behavior: "smooth", 
@@ -42,9 +56,8 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
       let scrollDelta = 0;
 
       const handleWheel = (event: WheelEvent) => {
-        event.preventDefault();
+        // event.preventDefault();
         scrollDelta += event.deltaY;
-
         onScrollChange(galleryElement.scrollLeft/(galleryElement.scrollWidth - galleryElement.clientWidth))
         if (!isScrolling) {
           isScrolling = true;

@@ -1,7 +1,8 @@
 .galleryWrapper {
     display: flex;
     flex-direction: row;
-
+    overflow-x: scroll;
+    width: 100vw;
     scrollbar-width: none; /* Firefoxでスクロールバー非表示 */
     -webkit-overflow-scrolling: touch; /* モバイルデバイスのスムーズスクロール */
     -ms-overflow-style: none; /* IE・Edgeでスクロールバー非表示 */
@@ -14,22 +15,27 @@
 .galleryWrapper::-webkit-scrollbar {
     display: none; /* ChromeやSafariでスクロールバー非表示 */
 }
-
+.innerContainer{
+    display: flex;
+    flex-direction: row;
+}
 
 .image {
+    flex-shrink: 0; 
     display: block;
     z-index: 1;
     border-width: 1px;
     border-color: black;
 }
 .verticalFrame{
-    width: 1000px;
+    flex-shrink: 0; 
     display: flex;
     flex-direction: column;
     gap: 40px;
     padding: 20px;
 }
 .horizontalFrame{
+    flex-shrink: 0; 
     display: flex;
     flex-direction: row;
     gap: 40px;
