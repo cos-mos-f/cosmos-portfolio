@@ -27,7 +27,8 @@ body {
 @media screen and (max-width: 768px) {
   body {
     transform: rotate(90deg);
-    transform-origin: center center;
+  font-size: 10pt;
+  transform-origin: center center;
   }
 }
 

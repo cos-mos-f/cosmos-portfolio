@@ -18,7 +18,12 @@
     transform-origin: left;
     letter-spacing: -2px;
 }
-
+  /* スマホ用の回転スタイル */
+  @media screen and (max-width: 768px) {
+    .Title {
+    font-size: 20pt;
+    }
+  }
 .TextFrame{
     width: 100%;
     display: flex;

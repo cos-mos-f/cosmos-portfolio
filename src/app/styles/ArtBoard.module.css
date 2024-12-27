@@ -36,6 +36,15 @@
     transform-origin: right;
     user-select: text;
   }
+  /* スマホ用の回転スタイル */
+@media screen and (max-width: 768px) {
+  .title {
+  font-size: 10pt;}
+  .artFrame{
+    width: 50%;
+    height: 100%;
+  }
+}
   /* styles/ArtBoard.module.css */
 .skeleton {
   background: linear-gradient(90deg, #e0e0e0 25%, #f8f8f8 50%, #e0e0e0 75%);
