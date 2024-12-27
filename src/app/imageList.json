@@ -28,10 +28,10 @@
         "tag":"f"
     },
     {
-        "filename": "ゲシュタルト 花譜.png",
-        "title": "ゲシュタルト 花譜",
-        "width": 1240,
-        "height": 1754,
+        "filename": "春 花譜.jpg",
+        "title": "春 花譜",
+        "width": 3560,
+        "height": 2500,
         "tag":"f"
     },
     {
@@ -56,13 +56,6 @@
         "tag":"o"
     },
     {
-        "filename": "夏祭り.png",
-        "title": "夏祭り",
-        "width": 4466,
-        "height": 5734,
-        "tag":"f"
-    },
-    {
         "filename": "KOKO.png",
         "title": "KOKO",
         "width": 1178,
@@ -77,10 +70,17 @@
         "tag":"f"
     },
     {
-        "filename": "春 花譜.jpg",
-        "title": "春 花譜",
-        "width": 3560,
-        "height": 2500,
+        "filename": "露.jpg",
+        "title": "露",
+        "width": 1754,
+        "height": 1240,
+        "tag":"o"
+    },
+    {
+        "filename": "ゲシュタルト 花譜.png",
+        "title": "ゲシュタルト 花譜",
+        "width": 1240,
+        "height": 1754,
         "tag":"f"
     },
     {
@@ -102,6 +102,13 @@
         "title": "淵 花譜",
         "width": 2500,
         "height": 1533,
+        "tag":"f"
+    },
+    {
+        "filename": "夏祭り.png",
+        "title": "夏祭り",
+        "width": 4466,
+        "height": 5734,
         "tag":"f"
     },
     {
@@ -145,12 +152,5 @@
         "width": 2007,
         "height": 2005,
         "tag":"f"
-    },
-    {
-        "filename": "露.jpg",
-        "title": "露",
-        "width": 1754,
-        "height": 1240,
-        "tag":"o"
     }
 ]

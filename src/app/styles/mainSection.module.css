@@ -9,11 +9,12 @@
     padding-left: 40px;
 }
 .Title {
-    padding-bottom: 20px;
+    text-align: start;
+    padding-bottom: 32px;
     font-size: 28pt;
-    line-height: 40pt;
+    line-height: 32pt;
     font-weight: 100;
-    transform: scaleX(1.2);
+    transform: scaleX(1.5);
     transform-origin: left;
     letter-spacing: -2px;
 }

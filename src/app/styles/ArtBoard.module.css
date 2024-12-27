@@ -28,10 +28,12 @@
   }
   
   .title {
-    font-size: 24px;
+    font-size: 16pt;
     margin-right: 20px;
     margin-bottom: 0;
     height: 30px;
+    transform: scaleX(1.25);
+    transform-origin: right;
     user-select: text;
   }
   /* styles/ArtBoard.module.css */

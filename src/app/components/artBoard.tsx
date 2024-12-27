@@ -6,7 +6,7 @@ type ImageItem = {
   title: string;
   width: number;
   height: number;
-  tag:string;
+  tag: string;
 };
 
 interface ArtBoardProps {
@@ -19,7 +19,7 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
   const base = process.env.GITHUB_PAGES ? '/cosmos-portfolio/' : './';
   const artFrameRef = useRef<HTMLDivElement | null>(null);
   const [frameSize, setFrameSize] = useState({ width: 0, height: 0 });
-  const [isImageLoaded, setIsImageLoaded] = useState(false); // 画像ロード状態
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
     const updateFrameSize = () => {
@@ -49,11 +49,19 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
   }, [index, frameSize.width, frameSize.height, imageList]);
 
   useEffect(() => {
-    setIsImageLoaded(false); // 画像切り替え時にローディング状態に設定
+    setIsImageLoaded(false);
     const img = new Image();
     img.src = `${base}/images/artWorks/${imageList[index].filename}`;
-    img.onload = () => setIsImageLoaded(true); // 画像がロードされたら更新
+    img.onload = () => setIsImageLoaded(true);
   }, [index, imageList, base]);
+
+  // 自動再生機能
+  useEffect(() => {
+    const interval = setInterval(() => {
+      changeIndex((index + 1) % imageList.length);
+    }, 3000); // 5秒ごとに進む
+    return () => clearInterval(interval); // コンポーネントのクリーンアップ
+  }, [index, changeIndex, imageList.length]);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = artFrameRef.current!.getBoundingClientRect();
@@ -92,4 +100,3 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
 };
 
 export default ArtBoard;
-

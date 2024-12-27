@@ -27,9 +27,7 @@ body {
 @media screen and (max-width: 768px) {
   body {
     transform: rotate(90deg);
-    transform-origin: bottom center;
-    width: 100vh; /* 高さを幅として設定 */
-    height: 100vw; /* 幅を高さとして設定 */
+    transform-origin: center center;
   }
 }
 
