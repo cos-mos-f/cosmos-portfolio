@@ -11,7 +11,12 @@
     background-color: rgba(255, 255, 255, 0.8); /* 半透明の背景 */
     z-index: 1000;
   }
-  
+  @media screen and (max-width: 768px) {
+    .loadingWrapper {
+    width: 500vh;
+    height: 500vw;
+  }
+  }
   /* スターアイコンの回転アニメーション */
   .spinner {
     width: 80px;

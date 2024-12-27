@@ -59,7 +59,7 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
   useEffect(() => {
     const interval = setInterval(() => {
       changeIndex((index + 1) % imageList.length);
-    }, 3000); // 5秒ごとに進む
+    }, 4500); // 5秒ごとに進む
     return () => clearInterval(interval); // コンポーネントのクリーンアップ
   }, [index, changeIndex, imageList.length]);
 
