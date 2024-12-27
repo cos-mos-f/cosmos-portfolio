@@ -28,4 +28,10 @@
   padding: 0;
   z-index: 1; /* mainの下になるように設定 */
   overflow: auto;
+  scrollbar-width: none; /* Firefoxでスクロールバー非表示 */
+  -webkit-overflow-scrolling: touch; /* モバイルデバイスのスムーズスクロール */
+  -ms-overflow-style: none; /* IE・Edgeでスクロールバー非表示 */
+}
+.back::-webkit-scrollbar {
+  display: none; /* ChromeやSafariでスクロールバー非表示 */
 }

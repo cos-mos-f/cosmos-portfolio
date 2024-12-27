@@ -74,15 +74,200 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
       };
     } 
   }, []);
+  //レイアウトの作成
+  const layoutImages = (images: ImageItem[]) => {
+    const layout: JSX.Element[] = [];
+    let _100 = 0;
+    if(galleryRef.current){
+      const galleryRect = galleryRef.current?.getBoundingClientRect();
+      _100 = galleryRect.width;
+    }
+    let i = 0;
+    let key = 0;
+    while (i < images.length) {
+      if(i+1>=images.length){
+        const img1 = images[i];
+        const width1 = 100;
+        const height1 = 100;
+        layout.push(
+          <div className={styles.verticalFrame} key={key}>
+            <img 
+              src={`${base}/images/artWorks/${img1.filename}`}
+              alt={img1.title}
+              className={styles.image}
+              style={{
+                width:width1 + 'px',
+                height:height1 + 'px'
+              }}/>
+          </div>
+        )
+        return layout;
+      }
+      const img1 = images[i];
+      const img2 = images[i + 1];
+      const img3 = images[i + 2];
+      let WH = [img1.height>img1.width,img2.height>img2.width,img3.height>img3.width]
+      if(i+1>=images.length){
+        WH = [true, true, true];
+      }
+      if (!WH[0]&&WH[1]&&WH[2]) {
+        // 上1下2
+        const width1 = 100;
+        const height1 = 100;
+        const width2 = 100;
+        const height2 = 100;
+        const width3 = 100;
+        const height3 = 100;
+        layout.push(
+          <div className={styles.verticalFrame} key={key}>
+              <img 
+                src={`${base}/images/artWorks/${img1.filename}`}
+                alt={img1.title}
+                className={styles.image}
+                style={{
+                  width:width1 + 'px',
+                  height:height1 + 'px'
+                }}/>
+            <div className={styles.horizontalFrame}>
+              <img 
+                  src={`${base}/images/artWorks/${img2.filename}`}
+                  alt={img2.title}
+                  className={styles.image}
+                  style={{
+                    width:width2 + 'px',
+                    height:height2 + 'px'
+                  }}/>
+                <img 
+                src={`${base}/images/artWorks/${img3.filename}`}
+                alt={img3.title}
+                className={styles.image}
+                style={{
+                  width:width3 + 'px',
+                  height:height3 + 'px'
+                }}/>
+            </div>
+          </div>
+        );
+        i += 3;
+        key+=1;
+      } else if (WH[0]&&WH[1]&&!WH[2]) {
+        // 上1下2
+        const width1 = 100;
+        const height1 = 100;
+        const width2 = 100;
+        const height2 = 100;
+        const width3 = 100;
+        const height3 = 100;
+        layout.push(
+          <div className={styles.verticalFrame} key={key}>
+            <div className={styles.horizontalFrame}>
+              <img 
+                src={`${base}/images/artWorks/${img1.filename}`}
+                alt={img1.title}
+                className={styles.image}
+                style={{
+                  width:width1 + 'px',
+                  height:height1 + 'px'
+                }}/>
+              <img 
+                src={`${base}/images/artWorks/${img2.filename}`}
+                alt={img2.title}
+                className={styles.image}
+                style={{
+                  width:width2 + 'px',
+                  height:height2 + 'px'
+                }}/>
+            </div>
+            <img 
+                src={`${base}/images/artWorks/${img3.filename}`}
+                alt={img3.title}
+                className={styles.image}
+                style={{
+                  width:width3 + 'px',
+                  height:height3 + 'px'
+                }}/>
+          </div>
+        )
+        i += 3;
+        key+=1;
+      }else if((WH[0]&&!WH[1]&&WH[2])||(WH[0]&&WH[1]&&WH[2])){
+        //2つのみ
+        const width1 = 100;
+        const height1 = 100;
+        const width2 = 100;
+        const height2 = 100;
+        const width3 = 100;
+        const height3 = 100;
+        layout.push(
+          <div className={styles.verticalFrame} key={key}>
+            <img 
+              src={`${base}/images/artWorks/${img1.filename}`}
+              alt={img1.title}
+              className={styles.image}
+              style={{
+                width:width1 + 'px',
+                height:height1 + 'px'
+              }}/>
+            <img 
+              src={`${base}/images/artWorks/${img2.filename}`}
+              alt={img2.title}
+              className={styles.image}
+              style={{
+                width:width2 + 'px',
+                height:height2 + 'px'
+              }}/>
+          </div>
+        );
+        i += 2;
+        key+=1;
+      }else{
+        //3つ縦
+        const width1 = 100;
+        const height1 = 100;
+        const width2 = 100;
+        const height2 = 100;
+        const width3 = 100;
+        const height3 = 100;
+        layout.push(
+          <div className={styles.verticalFrame} key={key}>
+            <img 
+              src={`${base}/images/artWorks/${img1.filename}`}
+              alt={img1.title}
+              className={styles.image}
+              style={{
+                width:width1 + 'px',
+                height:height1 + 'px'
+              }}/>
+            <img 
+                src={`${base}/images/artWorks/${img2.filename}`}
+                alt={img2.title}
+                className={styles.image}
+                style={{
+                  width:width2 + 'px',
+                  height:height2 + 'px'
+                }}/>
+            <img 
+              src={`${base}/images/artWorks/${img3.filename}`}
+              alt={img3.title}
+              className={styles.image}
+              style={{
+                width:width3 + 'px',
+                height:height3 + 'px'
+              }}/>
+          </div>
+        );
+        i += 3;
+        key+=1;
+      };
+    };
+    return layout;
+  };
 
   return (
     <div className={styles.galleryWrapper} ref={galleryRef}>
-      <div className={styles.space}></div>
-      {imageList.map((image, index) => (
-        <div key={index} className={styles.imageContainer}>
-          <img src={`${base}/images/artWorks/${image.filename}`} alt={image.title} className={styles.image} onClick={()=>onClickImage(index)}/>
-        </div>
-      ))}
+      <div className={styles.space}>
+      </div>
+      {layoutImages(imageList)}
     </div>
   );
 };
