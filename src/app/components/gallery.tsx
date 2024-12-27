@@ -1,32 +1,33 @@
-import { useEffect, useRef} from "react";
+import { useEffect, useRef, useState} from "react";
 import styles from "../styles/Gallery.module.css";
 
-type ImageItem = {
+type ImageItemG = {
   filename:string;
   title: string;
   width: number;
   height:number;
+  tag:string;
+  index:number;
 };
 
 type GalleryProps = {
-  imageList: ImageItem[];
+  imageList: ImageItemG[];
   currentPosition: number;
-  onScrollChange: (position: number) => void; // 連続量(0~1)を渡す
+  onScrollChange: (position: number) => void; 
   onClickImage:(index:number)=>void;
 };
 
 type imageProps = {
-  data:ImageItem;
+  data:ImageItemG;
   width:number;
   height:number;
-  index: number;
 }
 
 const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScrollChange, onClickImage}) => {
   const galleryRef = useRef<HTMLDivElement>(null);
 
   //画像フレーム
-  const GalleryImage: React.FC<imageProps> = ({ data, width , height, index}) => {
+  const GalleryImage: React.FC<imageProps> = ({ data, width , height}) => {
     const base = process.env.GITHUB_PAGES ? '/cosmos-portfolio/' : './';
     return (
       <img 
@@ -37,7 +38,7 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
         width:width + 'px',
         height:height + 'px'
       }}
-      onClick={()=>onClickImage(index)}
+      onClick={()=>onClickImage(data.index)}
       />
     );
   };
@@ -92,7 +93,7 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
   }, []);
 
   //レイアウトの作成
-  const layoutImages = (images: ImageItem[]) => {
+  const layoutImages = (images: ImageItemG[]) => {
     const layout: JSX.Element[] = [];
     let _100 = 0;
     if(galleryRef.current){
@@ -108,7 +109,7 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
         const height1 = 400*img1.height/img1.width;
         layout.push(
           <div className={styles.verticalFrame} key={key}>
-            <GalleryImage data={img1} width={width1} height={height1} index={i}/>
+            <GalleryImage data={img1} width={width1} height={height1}/>
           </div>
         )
         return layout;
@@ -116,9 +117,11 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
       const img1 = images[i];
       const img2 = images[i + 1];
       const img3 = images[i + 2];
-      let WH = [img1.height>img1.width,img2.height>img2.width,img3.height>img3.width]
-      if(i+1>=images.length){
+      let WH = [false, false, false];
+      if(!img3){
         WH = [true, true, true];
+      }else{
+        WH = [img1.height>img1.width,img2.height>img2.width,img3.height>img3.width]
       }
       if (!WH[0]&&WH[1]&&WH[2]) {
         // 上1下2
@@ -136,10 +139,10 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
         const height3 = width3*img3.height/img3.width;
         layout.push(
           <div className={styles.verticalFrame} key={key}>
-            <GalleryImage data={img1} width={width1} height={height1} index={i}/>
+            <GalleryImage data={img1} width={width1} height={height1}/>
             <div className={styles.horizontalFrame}>
-            <GalleryImage data={img2} width={width2} height={height2} index={i+1}/>
-            <GalleryImage data={img3} width={width3} height={height3} index={i+2}/>
+            <GalleryImage data={img2} width={width2} height={height2}/>
+            <GalleryImage data={img3} width={width3} height={height3}/>
             </div>
           </div>
         );
@@ -162,10 +165,10 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
         layout.push(
           <div className={styles.verticalFrame} key={key}>
             <div className={styles.horizontalFrame}>
-            <GalleryImage data={img1} width={width1} height={height1} index={i}/>
-            <GalleryImage data={img2} width={width2} height={height2} index={i+1}/>
+            <GalleryImage data={img1} width={width1} height={height1}/>
+            <GalleryImage data={img2} width={width2} height={height2}/>
             </div>
-            <GalleryImage data={img3} width={width3} height={height3} index={i+2}/>
+            <GalleryImage data={img3} width={width3} height={height3}/>
           </div>
         )
         i += 3;
@@ -181,8 +184,8 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
         const height2 = width*img2.height/img2.width;
         layout.push(
           <div className={styles.verticalFrame} key={key}>
-            <GalleryImage data={img1} width={width} height={height1} index={i}/>
-            <GalleryImage data={img2} width={width} height={height2} index={i+1}/>
+            <GalleryImage data={img1} width={width} height={height1}/>
+            <GalleryImage data={img2} width={width} height={height2}/>
           </div>
         );
         i += 2;
@@ -201,9 +204,9 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
         const height3 = width*img3.height/img3.width;
         layout.push(
           <div className={styles.verticalFrame} key={key}>
-            <GalleryImage data={img1} width={width} height={height1} index={i}/>
-            <GalleryImage data={img2} width={width} height={height2} index={i+1}/>
-            <GalleryImage data={img3} width={width} height={height3} index={i+2}/>
+            <GalleryImage data={img1} width={width} height={height1}/>
+            <GalleryImage data={img2} width={width} height={height2}/>
+            <GalleryImage data={img3} width={width} height={height3}/>
           </div>
         );
         i += 3;
@@ -212,12 +215,16 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
     };
     return layout;
   };
+  //表示内容
+  const [content, setContent] = useState(layoutImages(imageList));
+  useEffect(()=>{setContent(layoutImages(imageList))},[])
+  useEffect(()=>{setContent(layoutImages(imageList))},[imageList])
 
   return (
     <div className={styles.galleryWrapper} ref={galleryRef}>
       <div className={styles.space}>
       </div>
-      {layoutImages(imageList)}
+      {content}
     </div>
   );
 };

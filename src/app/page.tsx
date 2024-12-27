@@ -17,6 +17,32 @@ export default function Home() {
   const [currentPosition, setCurrentPosition] = useState(0);
   const [isScrollBarHovered, setIsScrollBarHovered] = useState(false);
   const [galleryType, setGalleryType] = useState('All');
+  //galleryTypeでフィルターしたimageList
+  const makeList = ()=>{
+    let list = [];
+    console.log(galleryType);
+    for(let i=0; i<imageList.length; i++){
+      const item = {
+        filename:imageList[i].filename,
+        title:imageList[i].title,
+        width:imageList[i].width,
+        height:imageList[i].height,
+        tag:imageList[i].tag,
+        index:i,
+      };
+      if(
+        (galleryType==="FanArt"&&!item.tag.includes("f"))||
+        (galleryType==="Original"&&!item.tag.includes("o"))||
+        (galleryType==="Work"&&!item.tag.includes("w"))
+      ){
+        console.log("continue")
+        continue
+      }
+      list.push(item);
+    }
+    return list;
+  }
+  const [filteredImageList, setFilteredImageList] = useState(makeList());
 
   // 全ての画像をプリロードする関数
   const preloadImages = async (images: string[]) => {
@@ -37,6 +63,12 @@ export default function Home() {
     const imageFilenames = imageList.map((image) => image.filename);
     preloadImages(imageFilenames).then(() => setIsLoading(false));
   }, []);
+
+  //ギャラリーの表示内容を更新
+  useEffect(()=>{
+    let list = makeList();
+    setFilteredImageList(list);
+  },[galleryType]);
 
   useEffect(() => {
     if (pageType === "artBoard") {
@@ -93,7 +125,7 @@ export default function Home() {
     } else if (pageType === "Gallery") {
       return (
         <Gallery
-          imageList={imageList}
+          imageList={filteredImageList}
           currentPosition={currentPositionGallery}
           onScrollChange={handleGalleryScrollChange}
           onClickImage={ChangeImage}

@@ -6,6 +6,7 @@ type ImageItem = {
   title: string;
   width: number;
   height: number;
+  tag:string;
 };
 
 interface ArtBoardProps {
