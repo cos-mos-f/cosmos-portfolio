@@ -67,7 +67,7 @@ export default function Home() {
 
   //ギャラリーの表示内容を更新
   useEffect(()=>{
-    let list = makeList();
+    const list = makeList();
     setFilteredImageList(list);
   },[galleryType]);
 
