@@ -1,4 +1,4 @@
-import { useEffect, useRef , useState, useLayoutEffect} from "react";
+import { useEffect, useRef} from "react";
 import styles from "../styles/Gallery.module.css";
 
 type ImageItem = {
