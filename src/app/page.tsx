@@ -20,7 +20,7 @@ export default function Home() {
   const [galleryType, setGalleryType] = useState('All');
   //galleryTypeでフィルターしたimageList
   const makeList = ()=>{
-    let list = [];
+    const list = [];
     console.log(galleryType);
     for(let i=0; i<imageList.length; i++){
       const item = {

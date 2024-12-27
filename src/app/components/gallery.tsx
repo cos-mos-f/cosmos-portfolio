@@ -44,12 +44,6 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
 
     );
   };
-  useEffect(() => {
-    const preloadImages = imageList.map((image) => {
-      const img = new Image();
-      img.src = `${base}/images/artWorks/${image.filename}`;
-    });
-  }, [imageList]);
   const galleryDimensions = useRef({ width: 0, height: 0 });
 
 useEffect(() => {
