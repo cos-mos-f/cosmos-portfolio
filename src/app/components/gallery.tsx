@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState} from "react";
 import styles from "../styles/Gallery.module.css";
-
+import Loading from "./Loading";
 type ImageItemG = {
   filename:string;
   title: string;
@@ -25,23 +25,41 @@ type imageProps = {
 
 const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScrollChange, onClickImage}) => {
   const galleryRef = useRef<HTMLDivElement>(null);
+  const base = process.env.GITHUB_PAGES ? '/cosmos-portfolio/' : './';
 
   //画像フレーム
   const GalleryImage: React.FC<imageProps> = ({ data, width , height}) => {
-    const base = process.env.GITHUB_PAGES ? '/cosmos-portfolio/' : './';
     return (
-      <img 
-      src={`${base}/images/artWorks/${data.filename}`}
-      alt={data.title}
-      className={styles.image}
-      style={{
-        width:width + 'px',
-        height:height + 'px'
-      }}
-      onClick={()=>onClickImage(data.index)}
-      />
+<img 
+  src={`${base}/images/artWorks/${data.filename}`}
+  alt={data.title}
+  className={styles.image}
+  style={{
+    width: width + 'px',
+    height: height + 'px',
+  }}
+  loading="lazy"
+  onClick={() => onClickImage(data.index)}
+/>
+
     );
   };
+  useEffect(() => {
+    const preloadImages = imageList.map((image) => {
+      const img = new Image();
+      img.src = `${base}/images/artWorks/${image.filename}`;
+    });
+  }, [imageList]);
+  const galleryDimensions = useRef({ width: 0, height: 0 });
+
+useEffect(() => {
+  if (galleryRef.current) {
+    const { width, height } = galleryRef.current.getBoundingClientRect();
+    galleryDimensions.current = { width, height };
+  }
+}, []);
+
+  
   //スクロールバーからの位置変更
   useEffect(() => {
     const galleryElement = galleryRef.current;
@@ -220,13 +238,27 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
   useEffect(()=>{setContent(layoutImages(imageList))},[])
   useEffect(()=>{setContent(layoutImages(imageList))},[imageList])
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  // 画像のレイアウト作成時にローディングを解除
+  useEffect(() => {
+    const timeout = setTimeout(() => setIsLoading(false), 1000); // 仮に500ms待つ
+    return () => clearTimeout(timeout);
+  }, [imageList]);
+  
   return (
     <div className={styles.galleryWrapper} ref={galleryRef}>
-      <div className={styles.space}>
-      </div>
-      {content}
+      <div className={styles.space}></div>
+      {isLoading ? (
+        <div className={styles.skeleton}>
+          <Loading/>
+        </div>
+      ) : (
+        content
+      )}
     </div>
   );
+  
 };
 
 export default Gallery;

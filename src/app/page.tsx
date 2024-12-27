@@ -7,6 +7,7 @@ import Gallery from './components/gallery';
 import MainSection from './components/mainSection';
 import SubSection from './components/subSection';
 import imageList from './imageList.json';
+import Loading from './components/Loading';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -137,7 +138,7 @@ export default function Home() {
   };
 
   if (isLoading) {
-    return <div className={styles.loading}>Loading...</div>; // ローディング画面
+    return <Loading/>;
   }
 
   return (
