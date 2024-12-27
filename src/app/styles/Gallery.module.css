@@ -15,10 +15,6 @@
 .galleryWrapper::-webkit-scrollbar {
     display: none; /* ChromeやSafariでスクロールバー非表示 */
 }
-.innerContainer{
-    display: flex;
-    flex-direction: row;
-}
 
 .image {
     flex-shrink: 0; 
@@ -32,7 +28,8 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
-    padding: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 .horizontalFrame{
     flex-shrink: 0; 
