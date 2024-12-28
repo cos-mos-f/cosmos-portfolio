@@ -13,9 +13,7 @@
   }
   @media screen and (max-width: 768px) {
     .loadingWrapper {
-      position: fixed !important;
-      right:-50vh;
-      bottom: -50vw;
+      position: static;
       width: 100vh;
       height: 100vw;
   }

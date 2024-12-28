@@ -27,14 +27,10 @@ body {
 @media screen and (max-width: 768px) {
   body {
     transform: rotate(90deg);
-  font-size: 10pt;
-  transform-origin: center center;
+  font-size: 16pt;
   }
 }
 
-* {
-  user-select: none; /* テキスト選択を無効化 */
-}
 * {
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none;    /* Firefox (古いバージョン) */
@@ -42,5 +38,5 @@ body {
   user-select: none;         /* 標準 */
 }
 img {
-  user-select: none;        /* テキスト選択を無効化 */
+  user-select: none;      
 }

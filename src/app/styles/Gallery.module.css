@@ -44,3 +44,17 @@
     width: 40vw; 
     height: 100%;
 }
+/* スマホ用の回転スタイル */
+@media screen and (max-width: 768px) {
+    .galleryWrapper {
+        position: fixed;
+        left: 0;
+        width: 100vh;
+        height: 100vw;
+    }
+    .space {
+        flex-shrink: 0; 
+        width: 40vh; 
+        height: 100%;
+    }
+}

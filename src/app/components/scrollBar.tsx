@@ -46,9 +46,15 @@ const ScrollBar: React.FC<ScrollBarProps> = ({currentPosition, onScrollChange , 
     const container = containerRef.current;
     if (container) {
       const rect = container.getBoundingClientRect();
-      const clickY = event.clientY - rect.top;
-      const targetPosition = Math.min(Math.max(clickY / rect.height, 0), 1);
-      animateScroll(currentPosition, targetPosition);
+      if(rect.bottom===50){
+        const clickY = rect.right - event.clientX;
+        const targetPosition = Math.min(Math.max(clickY / rect.width, 0), 1);
+        animateScroll(currentPosition, targetPosition);
+      }else{
+        const clickY = event.clientY - rect.top;
+        const targetPosition = Math.min(Math.max(clickY / rect.height, 0), 1);
+        animateScroll(currentPosition, targetPosition);
+      }
     }
   };
 

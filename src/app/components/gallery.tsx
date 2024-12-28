@@ -49,7 +49,11 @@ const Gallery: React.FC<GalleryProps> = ({ imageList, currentPosition , onScroll
 useEffect(() => {
   if (galleryRef.current) {
     const { width, height } = galleryRef.current.getBoundingClientRect();
-    galleryDimensions.current = { width, height };
+    if(width>height){
+      galleryDimensions.current = { width, height };
+    }else{
+      galleryDimensions.current = { height, width };
+    }
   }
 }, []);
 
@@ -61,7 +65,6 @@ useEffect(() => {
     if (galleryElement) {
       const maxScrollLeft = galleryElement.scrollWidth - galleryElement.clientWidth;
       const scrollLeft = maxScrollLeft * currentPosition;
-      console.log(scrollLeft);
       galleryElement.scrollTo({
         left: scrollLeft,
         behavior: "smooth", 
@@ -110,7 +113,7 @@ useEffect(() => {
     let _100 = 0;
     if(galleryRef.current){
       const galleryRect = galleryRef.current?.getBoundingClientRect();
-      _100 = galleryRect.height;
+      _100 = Math.min(galleryRect.height, galleryRect.width);
     }
     let i = 0;
     let key = 0;

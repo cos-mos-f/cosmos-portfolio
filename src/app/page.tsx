@@ -8,6 +8,7 @@ import MainSection from './components/mainSection';
 import SubSection from './components/subSection';
 import imageList from './imageList.json';
 import Loading from './components/Loading';
+import InitialLoading from './components/initialLoading';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +22,6 @@ export default function Home() {
   //galleryTypeでフィルターしたimageList
   const makeList = ()=>{
     const list = [];
-    console.log(galleryType);
     for(let i=0; i<imageList.length; i++){
       const item = {
         filename:imageList[i].filename,
@@ -36,7 +36,6 @@ export default function Home() {
         (galleryType==="Original"&&!item.tag.includes("o"))||
         (galleryType==="Work"&&!item.tag.includes("w"))
       ){
-        console.log("continue")
         continue
       }
       list.push(item);
@@ -138,7 +137,7 @@ export default function Home() {
   };
 
   if (isLoading) {
-    return <Loading/>;
+    return <InitialLoading/>;
   }
 
   return (

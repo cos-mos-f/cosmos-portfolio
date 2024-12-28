@@ -27,3 +27,16 @@
   height: 60px;
   transform: translateY(-50%); /* インジケータの中央揃え */
 }
+/* スマホ用の回転スタイル */
+@media screen and (max-width: 768px) {
+  .scrollBarContainer {
+    position: fixed;
+    top: 5vw;
+    height: 90vw;
+    width: 30px;
+  }
+  .indicator{
+    width: 40px;
+    height: 40px;
+  }
+}
