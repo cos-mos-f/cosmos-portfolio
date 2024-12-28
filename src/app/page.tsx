@@ -7,8 +7,8 @@ import Gallery from './components/gallery';
 import MainSection from './components/mainSection';
 import SubSection from './components/subSection';
 import imageList from './imageList.json';
-import Loading from './components/Loading';
 import InitialLoading from './components/initialLoading';
+import Head from "next/head";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -141,25 +141,51 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.main}>
-        <ScrollBar
-          currentPosition={currentPosition}
-          onScrollChange={handleScrollChange}
-          setIsHovered={setIsScrollBarHovered}
-        />
-        <MainSection
-          pageType={pageType}
-          setPageType={setPageType}
-        />
-        <SubSection
-          pageType={pageType}
-          galleryType={galleryType}
-          setGalleryType={setGalleryType}
-        />
+    <>
+      <Head>
+        {/* ページのタイトル */}
+        <title>My Awesome Page</title>
+        <meta property="og:title" content="My Awesome Page" />
+        
+        {/* ページの説明 */}
+        <meta name="description" content="This is an awesome page built with Next.js." />
+        <meta property="og:description" content="This is an awesome page built with Next.js." />
+        
+        {/* サムネイル画像 */}
+        <meta property="og:image" content="https://example.com/awesome-thumbnail.jpg" />
+        
+        {/* ページURL */}
+        <meta property="og:url" content="https://example.com/awesome-page" />
+        
+        {/* その他のOGP設定 */}
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Awesome Site" />
+        
+        {/* Twitterカード */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://example.com/awesome-thumbnail.jpg" />
+      </Head>
+      <div className={styles.container}>
+        <div className={styles.main}>
+          <ScrollBar
+            currentPosition={currentPosition}
+            onScrollChange={handleScrollChange}
+            setIsHovered={setIsScrollBarHovered}
+          />
+          <MainSection
+            pageType={pageType}
+            setPageType={setPageType}
+          />
+          <SubSection
+            pageType={pageType}
+            galleryType={galleryType}
+            setGalleryType={setGalleryType}
+          />
+        </div>
+        <div className={styles.back}>{renderContent()}</div>
       </div>
-      <div className={styles.back}>{renderContent()}</div>
-    </div>
+    </>
   );
 }
 
