@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "cosmos gallery",
     description: "こすもす-cosmos-ポートフォリオ",
-    images: ["/metaImage.webp"],
+    images: ["/cosmos-portfolio/metaImage.webp"],
   },
   metadataBase: new URL("https://example.com"), // サイトのベースURL
   robots: {
