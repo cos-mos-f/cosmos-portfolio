@@ -120,8 +120,8 @@ useEffect(() => {
     while (i < images.length) {
       if(i+1>=images.length){
         const img1 = images[i];
-        const width1 = 400;
-        const height1 = 400*img1.height/img1.width;
+        const width1 = _100*0.5;
+        const height1 = width1*img1.height/img1.width;
         layout.push(
           <div className={styles.verticalFrame} key={key}>
             <GalleryImage data={img1} width={width1} height={height1}/>

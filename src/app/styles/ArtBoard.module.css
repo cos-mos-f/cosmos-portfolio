@@ -22,7 +22,11 @@
     overflow: hidden;
     pointer-events: auto;
   }
-  
+  @media (prefers-color-scheme: dark) {
+    .artFrame {
+        border-color: #fff;
+    }
+  }
   .image {
     z-index: -1;
   }

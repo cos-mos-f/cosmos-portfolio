@@ -23,6 +23,11 @@
     border-width: 1px;
     border-color: black;
 }
+@media (prefers-color-scheme: dark) {
+    .image {
+        border-color: #fff;
+    }
+  }
 .verticalFrame{
     flex-shrink: 0; 
     display: flex;

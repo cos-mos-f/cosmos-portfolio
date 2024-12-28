@@ -17,7 +17,11 @@
     background-color: black; /* 線の色 */
     transition: width 0.3s ease-in-out; /* アニメーションを設定 */
   }
-  
+  @media (prefers-color-scheme: dark) {
+    .Line::after {
+        background-color: #fff;
+    }
+  }
   .Line.active::after {
     width: 100%; /* アクティブ時に線が全体に広がる */
   }

@@ -65,8 +65,13 @@ const ArtBoard: React.FC<ArtBoardProps> = ({ imageList, index, changeIndex }) =>
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = artFrameRef.current!.getBoundingClientRect();
-    const isRightClick = e.clientX > rect.left + rect.width / 2;
-    changeIndex(isRightClick ? (index + 1) % imageList.length : (index - 1 + imageList.length) % imageList.length);
+    if(rect.width==rect.height){
+      const isRightClick = e.clientY > rect.top + rect.width / 2;
+      changeIndex(isRightClick ? (index + 1) % imageList.length : (index - 1 + imageList.length) % imageList.length);
+    }else{
+      const isRightClick = e.clientX > rect.left + rect.width / 2;
+      changeIndex(isRightClick ? (index + 1) % imageList.length : (index - 1 + imageList.length) % imageList.length);
+    }
   };
 
   return (
