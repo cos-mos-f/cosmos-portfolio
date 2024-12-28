@@ -137,7 +137,34 @@ export default function Home() {
   };
 
   if (isLoading) {
-    return <InitialLoading/>;
+    return (
+    <>
+      <Head>
+        {/* ページのタイトル */}
+        <title>My Awesome Page</title>
+        <meta property="og:title" content="My Awesome Page" />
+        
+        {/* ページの説明 */}
+        <meta name="description" content="This is an awesome page built with Next.js." />
+        <meta property="og:description" content="This is an awesome page built with Next.js." />
+        
+        {/* サムネイル画像 */}
+        <meta property="og:image" content="https://example.com/awesome-thumbnail.jpg" />
+        
+        {/* ページURL */}
+        <meta property="og:url" content="https://example.com/awesome-page" />
+        
+        {/* その他のOGP設定 */}
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Awesome Site" />
+        
+        {/* Twitterカード */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://example.com/awesome-thumbnail.jpg" />
+      </Head>
+      <InitialLoading/>
+    </>);
   }
 
   return (
