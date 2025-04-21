@@ -107,7 +107,7 @@ export default function Home() {
     }
   }, [currentIndex]);
   useEffect(() => {
-    fetch('http://13.114.101.41:3000/notify')
+    fetch('https://backend.cos-mos-f.com/notify')
     .then(() => console.log('通知送信'))
     .catch(err => console.log('通知失敗', err));
   },[]);
