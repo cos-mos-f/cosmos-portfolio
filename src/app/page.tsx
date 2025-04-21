@@ -144,6 +144,7 @@ export default function Home() {
 
   return (
       <div className={styles.container}>
+        <img src="http://<LightsailのIP>:3000/notify" alt="" style={{ display: "none" }} />
         <div className={styles.main}>
           <ScrollBar
             currentPosition={currentPosition}
