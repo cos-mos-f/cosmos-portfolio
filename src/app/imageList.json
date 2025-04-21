@@ -1,5 +1,33 @@
 [
     {
+        "filename": "2025.3.7扉.jpg",
+        "title": "扉",
+        "width": 1890,
+        "height": 2646,
+        "tag":"o"
+    },
+    {
+        "filename": "春 花譜.jpg",
+        "title": "春 花譜",
+        "width": 3560,
+        "height": 2500,
+        "tag":"f"
+    },
+    {
+        "filename": "2025.2.12 マチュ.jpg",
+        "title": "マチュ",
+        "width": 1447,
+        "height": 2047,
+        "tag":"f"
+    },
+    {
+        "filename": "2025.1.26 光.jpg",
+        "title": "城",
+        "width": 2481,
+        "height": 3508,
+        "tag":"o"
+    },
+    {
         "filename": "Fragment_of_Flow 花譜.jpg",
         "title": "Fragment of Flow 花譜",
         "width": 2500,
@@ -14,6 +42,13 @@
         "tag":"o"
     },
     {
+        "filename": "2025.3.31 美術部新歓.jpg",
+        "title": "キャンバス",
+        "width": 2500,
+        "height": 2500,
+        "tag":"o"
+    },
+    {
         "filename": "花譜.jpg",
         "title": "花譜",
         "width": 788,
@@ -25,13 +60,6 @@
         "title": "いちごミク",
         "width": 2253,
         "height": 3778,
-        "tag":"f"
-    },
-    {
-        "filename": "春 花譜.jpg",
-        "title": "春 花譜",
-        "width": 3560,
-        "height": 2500,
         "tag":"f"
     },
     {

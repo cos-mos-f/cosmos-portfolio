@@ -121,7 +121,8 @@ export default function Home() {
           changeIndex={changeIndex}
         />
       );
-    } else if (pageType === "Gallery") {
+    }  
+    if (pageType === "Gallery") {
       return (
         <Gallery
           imageList={filteredImageList}
@@ -130,8 +131,9 @@ export default function Home() {
           onClickImage={ChangeImage}
         />
       );
-    } else if (pageType === "Contact") {
-      return <div></div>;
+    } 
+    if (pageType === "Contact") {
+      return <div/>;
     }
   };
 
