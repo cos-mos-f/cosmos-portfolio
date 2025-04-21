@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './styles/Home.module.css';
 import ScrollBar from './components/scrollBar';
 import ArtBoard from './components/artBoard';
