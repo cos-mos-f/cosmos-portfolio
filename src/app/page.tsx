@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import styles from './styles/Home.module.css';
 import ScrollBar from './components/scrollBar';
 import ArtBoard from './components/artBoard';
@@ -106,7 +106,11 @@ export default function Home() {
       setCurrentPositionArtBoard(currentIndex / (imageList.length - 1));
     }
   }, [currentIndex]);
-
+  useEffect(() => {
+    fetch('http://13.114.101.41:3000/notify')
+    .then(() => console.log('通知送信'))
+    .catch(err => console.log('通知失敗', err));
+  },[]);
   const ChangeImage = (index: number) => {
     setPageType("artBoard");
     setCurrentIndex(index);
@@ -144,7 +148,6 @@ export default function Home() {
 
   return (
       <div className={styles.container}>
-        <img src="http://13.114.101.41:3000/notify" alt="" style={{ display: "none" }} />
         <div className={styles.main}>
           <ScrollBar
             currentPosition={currentPosition}
