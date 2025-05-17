@@ -57,6 +57,7 @@ export default function Home() {
     await Promise.all(promises);
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     // 全ての画像をプリロードし終わったらローディングを解除
     const imageFilenames = imageList.map((image) => image.filename);
