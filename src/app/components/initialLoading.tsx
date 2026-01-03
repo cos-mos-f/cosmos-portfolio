@@ -5,7 +5,7 @@ const InitialLoading: React.FC = () => {
     const base = process.env.GITHUB_PAGES ? '/cosmos-portfolio/' : './';
   return (
     <div className={styles.loadingWrapper}>
-      <img src={`${base}/images/star.svg`} alt="Loading" className={styles.spinner} />
+      <img src={`${base}images/star.svg`} alt="Loading" className={styles.spinner} />
     </div>
   );
 };
